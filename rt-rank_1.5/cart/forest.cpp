@@ -2,7 +2,6 @@
 
 #include "forest.h"
 
-
 void randsample(const vector<tuple*>& data, vector<tuple*>& s) {
   int n = data.size(), i;
   for (i=0; i < n; i++)

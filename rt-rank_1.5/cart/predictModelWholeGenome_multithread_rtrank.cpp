@@ -297,7 +297,6 @@ void *predictModelWholeGenome(void *arg) {
       int offset = j;
       offset += -(int)((float)(param->windowSize / 2) / (float)param->resolution + 0.5);
       if(offset < 0 || offset + (int)((float)(param->windowSize) / (float)param->resolution + 0.5) > (int)(chrlen[i] / param->resolution) + 1) {
-        // printf("offset is %d\n", offset);
         free(buffer);
         continue;
       }

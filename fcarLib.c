@@ -275,6 +275,10 @@ int parseParam(char *paramFile, struct extractFeatureParam *param){
       param->max = atoi(value);
       //printf("/* %s is %s\n", name, value);
     }
+    else if (strcmp(name, "strand") == 0) {
+      param->strand = atoi(value);
+      //printf("/* %s is %s\n", name, value);
+    }
     else {
       //printf("/* Warning: unkown parameters %s=%s, ignored\n", name, value);
     }
@@ -426,6 +430,12 @@ int coverage_core(char *bam, char *outputFile, struct extractFeatureParam *param
 
   if(param->pairend == 0) {
     while (samread(bamFp, read) > 0) {
+      // code snippet for extracting strand info
+      int readStrand = 0;
+      if( ((int) (read->core.flag & 0x4) == 0) && ((int) (read->core.flag & 0x10) != 0) ) {
+        readStrand = 1; // mapped to reverse strand
+      }
+
       if (read->core.tid < 0 || read->core.tid > 23) {
         continue;
       }
